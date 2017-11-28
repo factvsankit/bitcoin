@@ -322,7 +322,8 @@ section {
         margin: 0 auto; }
         .hero-banner .event-time #defaultCountdown span.countdown-row .countdown-section {
           float: left;
-          padding: 10px 25px;
+          padding: 10px;
+          width: 80px;
           border-right: 1px solid #3c7ad2;
           text-align: center; }
           @media only screen and (max-width: 767px) {
