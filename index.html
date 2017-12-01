@@ -126,7 +126,7 @@
 										<div class="table-cell va-middle text-center">
 											<div class="icon"><img src="images/c1.png"></div>
 											<div class="c-name">Dmarket Pre-Sale</div>
-											<span>99.5% done</span>
+											<span data-end-date="Dec 5, 2017 15:37:25" class="ico-countup"></span>
 										</div>
 									</div>
 								</a>
@@ -1116,5 +1116,33 @@
 		});
 	</script>
 
+	<!-- ICO Count Up Timer -->
+
+	<script>
+		$(function () {
+			endDate = $('.ico-countup').attr('data-end-date');
+			console.log(endDate);
+			countDownDate = new Date(endDate).getTime();
+
+			var x = setInterval(function() {
+
+				var now = new Date().getTime();
+
+				var distance = countDownDate - now;
+
+				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+				percentage = 100/(days + 1);
+				percentage = percentage.toFixed(2);
+				$('.ico-countup').html(percentage + '%' + ' done');
+
+				if (distance < 0) {
+					clearInterval(x);
+					document.getElementById("demo").innerHTML = "ICO EXPIRED";
+				}
+			}, 1000);
+
+		});
+	</script>
 </body>
 </html>
