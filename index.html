@@ -1309,30 +1309,49 @@
 	<!-- accepting terms  -->
 	<script>
 		$(function(){
-			var expiryDate = function(){
-				setInterval(function() {				
-					var current = new Date();
-					var end = current.setDate(current.getDate() + 30);;
 
-					end-- ;
-
-					$('.cookie-policy').addClass('hide');
-					if (end <= 0) {
-						clearInterval(y);
-						$('.cookie-policy').addClass('show');
-					}
-				},0);
+			function createCookie(name,value,days) {
+				var expires = "";
+				if (days) {
+					var date = new Date();
+					date.setTime(date.getTime() + (days*24*60*60*1000));
+					expires = "; expires=" + date.toUTCString();
+				}
+				document.cookie = name + "=" + value + expires + "; path=/";
 			}
+
+			function readCookie(name) {
+				var nameEQ = name + "=";
+				var ca = document.cookie.split(';');
+				for(var i=0;i < ca.length;i++) {
+					var c = ca[i];
+					while (c.charAt(0)==' ') c = c.substring(1,c.length);
+					if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+				}
+				return null;
+			}
+
+			function eraseCookie(name) {
+				createCookie(name,"",-1);
+			}
+
 			$('.cookie-policy span.cp-right a').click(function(e){
-				expiryDate()
-				e.preventDefault();			
-			})
-			var checkExpiry = function(){
-				setInterval(function(){
-					expiryDate();
-				},0)
-			}
-			expiryDate();
+				$('.cookie-policy').slideUp(350);
+				createCookie('topbar','showHide',30);		
+				e.preventDefault();				
+			})		
+
+			var topBarInterval = setInterval(function() {
+				var hasCookie = readCookie('topbar');
+				if(!hasCookie){
+					clearInterval(topBarInterval);
+					eraseCookie('topbar');
+					$('.cookie-policy').slideDown(350);
+				}
+				else{
+					$('.cookie-policy').hide();
+				}
+			}, 1000);	
 		})
 	</script>
 </body>
