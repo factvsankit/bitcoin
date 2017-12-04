@@ -227,9 +227,45 @@ section {
 
 // specific css
 
+.cookie-policy{
+	background-color: #70b429;
+	padding: 15px 0;
+	font-size: 13px;
+	color:#fff;
+	span{
+		display: block;
+		&.cp-left{
+			margin-top: 10px;
+		}
+		&.cp-right{
+			a{
+				display: inline-block;
+				padding: 8px 15px;
+				border:2px solid #fff;
+				color:#fff;
+				&:hover{
+					opacity: 0.5;
+				}
+			}
+		}
+	}
+	@media (max-width: 992px){
+		text-align: center;
+		span{
+			float: none !important;
+			&.cp-left{
+				margin-top: 0;
+			}
+			&.cp-right{
+				margin-top: 7px;
+			}
+		}
+	}
+}
+
 .header{
-	z-index: 9;
-	position: fixed;
+	z-index: 9 !important;
+	position: absolute;
 	top: 0;
 	left:0;
 	right:0;
@@ -556,7 +592,7 @@ section {
 
 		.t-box-content {
 			display: block;
-
+			position: relative;
 			a {
 				display: block;
 				height: 134px;
@@ -749,10 +785,79 @@ section {
 	}
 }
 
+.tb-tooltip{
+	position: relative;
+	.tool-tip{
+		text-align: center;
+		background-color:rgba(95,161,25,1);
+		padding: 15px;
+		color:#fff;
+		font-size: 13px;
+		border-radius: 5px;
+		position: absolute;
+		top:-15px;
+		left:50%;
+		right: 0;
+		@include translate(-50%,-100%);
+		width: 221px;
+		opacity: 0;
+		visibility: hidden;
+		z-index: 9;
+		@include transition(all, 0.5s, ease-out);
+		&:after{
+			position: absolute;
+			bottom:-12px;
+			left:50%;
+			border-top: 15px solid rgba(95,161,25,1);
+			border-left: 15px solid transparent;
+			border-right: 15px solid transparent;
+			content:'';
+			@include translate(-50%,0);
+		}
+	}
+	&:hover{
+		.tool-tip{
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+}
+.tb-wrapper table tbody tr:first-child .tb-tooltip{
+	.tool-tip{
+		bottom:-15px;
+		left:50%;
+		right: 0;
+		@include translate(-50%,100%);
+		@include transition(all, 0.5s, ease-out);
+		&:after{
+			position: absolute;
+			top:-12px;
+			left:50%;
+			bottom:auto;
+			border-bottom: 15px solid rgba(95,161,25,1);
+			border-left: 15px solid transparent;
+			border-right: 15px solid transparent;
+			border-top: 0;
+			content:'';
+			@include translate(-50%,0);
+		}
+	}	
+}
+
 .upcoming-token {
 	.tb-wrapper{
 		overflow-y: scroll;
 		height: 1000px;		
+		tbody{
+			tr{
+				cursor: pointer;
+				@include transition(background-color,0.35s,eae-out);
+				&:nth-child(even),
+				&:hover{
+					background-color:#f0f0f0;
+				}
+			}
+		}
 	}
 	table { 
 		overflow-y: hidden;
